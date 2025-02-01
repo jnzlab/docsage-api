@@ -1,6 +1,7 @@
 # Import necessary libraries
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 import torch
 from torchvision import transforms
 from PIL import Image
@@ -8,6 +9,12 @@ import timm
 
 # Initialize FastAPI app
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Define the transformations (same as during training)
 transform = transforms.Compose([
